@@ -1,0 +1,34 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card *ngIf="!activeUserName">
+      <nb-card-header>Join Chat</nb-card-header>
+      <nb-card-body class="example-items-rows">
+        <input
+          [(ngModel)]="userName"
+          type="text"
+          nbInput
+          fullWidth
+          status="basic"
+          placeholder="Default"
+        />
+        <button nbButton (click)="onJoinClick()">Join</button>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-chat
+      *ngIf="activeUserName"
+      [title]="'Simple chat - ' + activeUserName"
+      [size]="'giant'"
+    >
+      <nb-chat-message
+        *ngFor="let msg of messages"
+        [message]="msg.messageText"
+        [sender]="msg.user"
+        [date]="msg.insertDate"
+      >
+      </nb-chat-message>
+
+      <nb-chat-form (send)="sendMessage($event)"> </nb-chat-form>
+    </nb-chat>
+  </nb-layout-column>
+</nb-layout>
