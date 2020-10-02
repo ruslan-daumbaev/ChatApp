@@ -1,5 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
 import { IMessage } from '../models/message.model';
 
@@ -9,11 +10,12 @@ const API_URL = environment.apiUrl;
   providedIn: 'root',
 })
 export class NotificationsService {
-  private messageReceived = new EventEmitter<IMessage>();
-  private connectionEstablished = new EventEmitter<boolean>();
-
-  private connectionIsEstablished = false;
   private hubConnection: HubConnection;
+  private messageReceivedSource = new Subject<IMessage>();
+  private connectedCountChangedSource = new Subject<number>();
+
+  public messageReceived$ = this.messageReceivedSource.asObservable();
+  public connectedCountChanged$ = this.connectedCountChangedSource.asObservable();
 
   constructor() {
     this.createConnection();
@@ -29,9 +31,12 @@ export class NotificationsService {
     this.hubConnection
       .start()
       .then(() => {
-        this.connectionIsEstablished = true;
-        console.log('Hub connection started');
-        this.connectionEstablished.emit(true);
+        this.hubConnection.on('Notify', (data: IMessage) =>
+          this.messageReceivedSource.next(data)
+        );
+        this.hubConnection.on('ConnectedChanged', (data: number) =>
+          this.connectedCountChangedSource.next(data)
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -43,11 +48,5 @@ export class NotificationsService {
 
   public stopConnection(): void {
     this.hubConnection.stop();
-  }
-
-  public registerOnServerEvents(callback: (n: IMessage) => any): void {
-    this.hubConnection.on('Notify', (data: IMessage) => {
-      callback(data);
-    });
   }
 }

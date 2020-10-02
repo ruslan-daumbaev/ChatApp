@@ -63,7 +63,7 @@ namespace ChatApp.Host
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chat-ws");
+                endpoints.MapHub<ChatHub>("api/v1/chat-ws");
             });
         }
     }

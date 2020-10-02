@@ -2,14 +2,14 @@
   <nb-layout-column>
     <nb-card *ngIf="!activeUserName">
       <nb-card-header>Join Chat</nb-card-header>
-      <nb-card-body class="example-items-rows">
+      <nb-card-body>
         <input
           [(ngModel)]="userName"
           type="text"
           nbInput
           fullWidth
           status="basic"
-          placeholder="Default"
+          placeholder="Enter your name"
         />
         <button nbButton (click)="onJoinClick()">Join</button>
       </nb-card-body>
@@ -17,7 +17,7 @@
 
     <nb-chat
       *ngIf="activeUserName"
-      [title]="'Simple chat - ' + activeUserName"
+      [title]="'Current user: ' + activeUserName + '; Users in chat: ' + usersInChat"
       [size]="'giant'"
     >
       <nb-chat-message

@@ -20,7 +20,6 @@ namespace ChatApp.Services
             this.context = context;
         }
 
-
         public async Task<IReadOnlyList<GetMessageDto>> GetMessages()
         {
             var messages = await context.Messages.Find(x => true).SortBy(x => x.InsertDate).ToListAsync();

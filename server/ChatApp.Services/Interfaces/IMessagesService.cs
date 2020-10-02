@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using ChatApp.Services.Dto;
+using JetBrains.Annotations;
 
 namespace ChatApp.Services.Interfaces
 {
@@ -9,6 +10,6 @@ namespace ChatApp.Services.Interfaces
     {
         Task<IReadOnlyList<GetMessageDto>> GetMessages();
 
-        Task<GetMessageDto> SaveMessage(string user, string messageText, CancellationToken token);
+        Task<GetMessageDto> SaveMessage([NotNull] string user, [NotNull] string messageText, CancellationToken token);
     }
 }
