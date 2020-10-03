@@ -21,22 +21,27 @@ namespace ChatApp.Host
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var conString = Configuration["MSSQL_CONNECTION_STRING"];
-            services.AddDbContext<ChatContext>(options => options.UseSqlServer(conString));
+            services.AddSignalR();
+
+            services.AddDbContext<ChatContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ChatDb")));
 
             services.AddTransient<IMessagesService, MessagesService>();
 
             services.AddControllers();
-
-            services.AddSignalR();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4300")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -53,8 +58,6 @@ namespace ChatApp.Host
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4300").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseEndpoints(endpoints =>
             {
