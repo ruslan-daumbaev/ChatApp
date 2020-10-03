@@ -81,13 +81,15 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   public loadPreviousPage(): void {
-    const oldestId = this.messages[0].id;
-    this.messagesService
-    .getMessages(oldestId)
-    .pipe(take(1))
-    .subscribe((data) => {
-      this.messages = data.concat(this.messages);
-      this.cdr.markForCheck();
-    });
+    if (this.messages.length) {
+      const oldestId = this.messages[0].id;
+      this.messagesService
+        .getMessages(oldestId)
+        .pipe(take(1))
+        .subscribe((data) => {
+          this.messages = data.concat(this.messages);
+          this.cdr.markForCheck();
+        });
+    }
   }
 }
