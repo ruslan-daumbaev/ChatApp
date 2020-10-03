@@ -14,6 +14,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 const USERNAME_STORAGE_KEY = 'chat-app-user';
 
 @Component({
+  selector: 'app-chat-room',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './chat-room.component.html',
 })

@@ -3,15 +3,19 @@
     <nb-card *ngIf="!activeUserName">
       <nb-card-header>Join Chat</nb-card-header>
       <nb-card-body>
-        <input
+        <div class="chat-login">
+          <input
           [(ngModel)]="userName"
           type="text"
           nbInput
           fullWidth
           status="basic"
           placeholder="Enter your name"
+          class="user-name"
         />
         <button nbButton (click)="onJoinClick()">Join</button>
+        </div>
+
       </nb-card-body>
     </nb-card>
 

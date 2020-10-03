@@ -1,17 +1,21 @@
-app-nb-chat {
+app-chat-room {
+  .chat-login {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
 
-  max-height: 50rem;
-  min-height: 50rem;
+  .user-name {
+    height: 40px;
+    border-radius: 0.25rem;
+    margin-right: 10px;
+  }
 
-  max-width: 40rem;
-  min-width: 40rem;
-}
+  app-nb-chat {
+    max-height: 50rem;
+    min-height: 50rem;
 
-
-app-nb-chat {
-  max-height: 50rem;
-  min-height: 50rem;
-
-  max-width: 40rem;
-  min-width: 40rem;
+    max-width: 40rem;
+    min-width: 40rem;
+  }
 }
