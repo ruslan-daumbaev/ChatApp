@@ -21,8 +21,8 @@ export class MessagesService {
     return this.http.get<IMessage[]>(this.getUrl(), { params });
   }
 
-  public sendMessage(messageText: string, user: string): Observable<any> {
-    return this.http.post(this.getUrl(), {
+  public sendMessage(messageText: string, user: string): Observable<IMessage> {
+    return this.http.post<IMessage>(this.getUrl(), {
       messageText,
       user,
     });
