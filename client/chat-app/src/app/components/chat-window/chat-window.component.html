@@ -1,0 +1,9 @@
+<nb-chat [scrollBottom]="true" [title]="title" [size]="size" #scrollable>
+  <nb-chat-message
+    *ngFor="let msg of messagesList"
+    [message]="msg.messageText"
+    [sender]="msg.user"
+  >
+  </nb-chat-message>
+  <nb-chat-form (send)="sendMessage($event)"> </nb-chat-form>
+</nb-chat>

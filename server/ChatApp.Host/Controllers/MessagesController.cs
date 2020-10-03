@@ -22,14 +22,14 @@ namespace ChatApp.Host.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessages()
+        public async Task<IActionResult> GetMessages([FromQuery] MessagesRequestDto request, CancellationToken token)
         {
-            var messages = await messagesService.GetMessages();
+            var messages = await messagesService.GetMessages(request.PageSize, request.AnchorMessage, token);
             return Ok(messages);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostMessage([FromBody] PostMessageDto message, CancellationToken token)
+        public async Task<IActionResult> PostMessage([FromBody] NewMessageDto message, CancellationToken token)
         {
             if (message == null || message.IsEmpty)
             {

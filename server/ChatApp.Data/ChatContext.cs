@@ -1,18 +1,20 @@
-﻿using ChatApp.Data.Configuration;
+﻿using ChatApp.Data.Configurations;
 using ChatApp.Data.Models;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatApp.Data
 {
-    public class ChatContext
+    public class ChatContext : DbContext
     {
-        public ChatContext(IChatDatabaseSettings settings)
+        public ChatContext(DbContextOptions<ChatContext> options) : base(options)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            Messages = database.GetCollection<Message>(settings.ChatCollectionName);
         }
 
-        public IMongoCollection<Message> Messages { get; }
+        public DbSet<Message> Messages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
+        }
     }
 }

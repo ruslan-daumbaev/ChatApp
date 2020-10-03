@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
   </ItemGroup>
 
   <ItemGroup>

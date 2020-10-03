@@ -10,7 +10,7 @@ namespace ChatApp.Host.Hubs
     {
         private static int ConnectedCount;
 
-        public async Task Notify(GetMessageDto message)
+        public async Task Notify(MessageDto message)
         {
             await Clients.All.Notify(message);
         }

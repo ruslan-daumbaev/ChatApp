@@ -5,7 +5,7 @@ namespace ChatApp.Host.Hubs
 {
     public interface IChatHub
     {
-        Task Notify(GetMessageDto message);
+        Task Notify(MessageDto message);
 
         Task ConnectedChanged(int count);
     }

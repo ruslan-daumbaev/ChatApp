@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { IMessage } from '../models/message.model';
-import { MessagesService } from '../services/messages.service';
-import { NotificationsService } from '../services/notifications.service';
+import { IMessage } from 'src/app/models/message.model';
+import { MessagesService } from 'src/app/services/messages.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 const USERNAME_STORAGE_KEY = 'chat-app-user';
 
@@ -78,5 +78,16 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     this.activeUserName = this.userName;
     sessionStorage.setItem(USERNAME_STORAGE_KEY, this.activeUserName);
     this.joinChat();
+  }
+
+  public loadPreviousPage(): void {
+    const oldestId = this.messages[0].id;
+    this.messagesService
+    .getMessages(oldestId)
+    .pipe(take(1))
+    .subscribe((data) => {
+      this.messages = data.concat(this.messages);
+      this.cdr.markForCheck();
+    });
   }
 }

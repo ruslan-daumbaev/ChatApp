@@ -12,13 +12,14 @@ import {
   NbLayoutModule,
   NbThemeModule,
 } from '@nebular/theme';
-import { ChatRoomComponent } from './components/chat-room.component';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 import { MessagesService } from './services/messages.service';
 import { NotificationsService } from './services/notifications.service';
 import { FormsModule } from '@angular/forms';
+import { InfiniteScrollChatComponent } from './components/chat-window/chat-window.component';
 
 @NgModule({
-  declarations: [AppComponent, ChatRoomComponent],
+  declarations: [AppComponent, ChatRoomComponent, InfiniteScrollChatComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

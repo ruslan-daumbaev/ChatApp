@@ -1,15 +1,14 @@
 using ChatApp.Data;
-using ChatApp.Data.Configuration;
 using ChatApp.Host.Hubs;
 using ChatApp.Host.Infrastructure;
 using ChatApp.Services;
 using ChatApp.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace ChatApp.Host
 {
@@ -25,11 +24,8 @@ namespace ChatApp.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ChatDatabaseSettings>(Configuration.GetSection(nameof(ChatDatabaseSettings)));
-
-            services.AddSingleton<IChatDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ChatDatabaseSettings>>().Value);
-
-            services.AddSingleton<ChatContext>();
+            var conString = Configuration["MSSQL_CONNECTION_STRING"];
+            services.AddDbContext<ChatContext>(options => options.UseSqlServer(conString));
 
             services.AddTransient<IMessagesService, MessagesService>();
 

@@ -1,5 +1,5 @@
 export interface IMessage {
-  id: string;
+  id: number;
   messageText: string;
   user: string;
   insertDate: string;

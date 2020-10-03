@@ -8,8 +8,8 @@ namespace ChatApp.Services.Interfaces
 {
     public interface IMessagesService
     {
-        Task<IReadOnlyList<GetMessageDto>> GetMessages();
+        Task<IReadOnlyList<MessageDto>> GetMessages(int pageSize, int? anchorMessage, CancellationToken token);
 
-        Task<GetMessageDto> SaveMessage([NotNull] string user, [NotNull] string messageText, CancellationToken token);
+        Task<MessageDto> SaveMessage([NotNull] string user, [NotNull] string messageText, CancellationToken token);
     }
 }

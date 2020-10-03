@@ -15,20 +15,15 @@
       </nb-card-body>
     </nb-card>
 
-    <nb-chat
+    <app-nb-chat
       *ngIf="activeUserName"
       [title]="'Current user: ' + activeUserName + '; Users in chat: ' + usersInChat"
       [size]="'giant'"
+      [messagesList]="messages"
+      (sendClick)="sendMessage($event)"
+      (previousPageRequested)="loadPreviousPage()"
     >
-      <nb-chat-message
-        *ngFor="let msg of messages"
-        [message]="msg.messageText"
-        [sender]="msg.user"
-        [date]="msg.insertDate"
-      >
-      </nb-chat-message>
 
-      <nb-chat-form (send)="sendMessage($event)"> </nb-chat-form>
-    </nb-chat>
+    </app-nb-chat>
   </nb-layout-column>
 </nb-layout>
