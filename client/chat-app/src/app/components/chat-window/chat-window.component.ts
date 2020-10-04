@@ -20,6 +20,8 @@ export class InfiniteScrollChatComponent
     super();
   }
 
+  public autoScrollBottom = true;
+
   @Input()
   public messagesList: IMessage[] = [];
 
@@ -40,8 +42,16 @@ export class InfiniteScrollChatComponent
   }
 
   public loadPreviousPage(event: any): void {
-    if (event.srcElement.scrollTop === 0) {
-      this.previousPageRequested.emit();
+    const pos = event.srcElement.scrollTop + event.srcElement.offsetHeight;
+    const max = event.srcElement.scrollHeight;
+
+    if (max !== pos) {
+      this.autoScrollBottom = false;
+      if (event.srcElement.scrollTop === 0) {
+        this.previousPageRequested.emit();
+      }
+    } else {
+      this.autoScrollBottom = true;
     }
   }
 

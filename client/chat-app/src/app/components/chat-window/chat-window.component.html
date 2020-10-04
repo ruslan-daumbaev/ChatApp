@@ -1,4 +1,4 @@
-<nb-chat [scrollBottom]="true" [title]="title" [size]="size" #scrollable>
+<nb-chat [scrollBottom]="autoScrollBottom" [title]="title" [size]="size" #scrollable>
   <nb-chat-message
     *ngFor="let msg of messagesList"
     [message]="msg.messageText"
