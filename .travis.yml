@@ -1,0 +1,9 @@
+language: csharp
+solution: server/ChatApp.sln
+mono: none
+dist: xenial
+dotnet: 3.1
+install:
+  - dotnet restore
+script:
+  - dotnet build
