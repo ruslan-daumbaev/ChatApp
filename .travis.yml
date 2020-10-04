@@ -4,5 +4,5 @@ dist: xenial
 dotnet: 3.1
 script:
   - dotnet restore
-  - cd project 
+  - cd server 
   - dotnet build
