@@ -12,6 +12,7 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 
 const USERNAME_STORAGE_KEY = 'chat-app-user';
+const PAGE_SIZE = 20;
 
 @Component({
   selector: 'app-chat-room',
@@ -48,7 +49,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       });
     this.messagesService
-      .getMessages()
+      .getMessages(PAGE_SIZE)
       .pipe(take(1))
       .subscribe((data) => {
         this.messages = data;
@@ -82,10 +83,10 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   public loadPreviousPage(): void {
-    if (this.messages.length) {
+    if (this.messages.length && this.messages.length >= PAGE_SIZE) {
       const oldestId = this.messages[0].id;
       this.messagesService
-        .getMessages(oldestId)
+        .getMessages(PAGE_SIZE, oldestId)
         .pipe(take(1))
         .subscribe((data) => {
           this.messages = data.concat(this.messages);

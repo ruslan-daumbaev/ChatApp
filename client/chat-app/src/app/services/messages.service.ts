@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment.prod';
 import { IMessage } from '../models/message.model';
 
 const API_URL = environment.apiUrl;
-const PAGE_SIZE = 20;
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +12,8 @@ const PAGE_SIZE = 20;
 export class MessagesService {
   constructor(private http: HttpClient) {}
 
-  public getMessages(anchorId?: number): Observable<IMessage[]> {
-    let params = new HttpParams().set('pageSize', PAGE_SIZE.toString());
+  public getMessages(pageSize: number, anchorId?: number): Observable<IMessage[]> {
+    let params = new HttpParams().set('pageSize', pageSize.toString());
     if (anchorId) {
       params = params.set('anchorMessage', anchorId.toString());
     }
