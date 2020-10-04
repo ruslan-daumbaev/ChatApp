@@ -1,5 +1,5 @@
 language: csharp
-solution: server/ChatApp.sln
+solution: ChatApp.sln
 mono: none
 dist: xenial
 dotnet: 3.1
