@@ -1,0 +1,33 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card *ngIf="!activeUserName">
+      <nb-card-header>Join Chat</nb-card-header>
+      <nb-card-body>
+        <div class="chat-login">
+          <input
+          [(ngModel)]="userName"
+          type="text"
+          nbInput
+          fullWidth
+          status="basic"
+          placeholder="Enter your name"
+          class="user-name"
+        />
+        <button nbButton (click)="onJoinClick()">Join</button>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+
+    <app-nb-chat
+      *ngIf="activeUserName"
+      [title]="'Current user: ' + activeUserName + '; Users in chat: ' + usersInChat"
+      [size]="'giant'"
+      [messagesList]="messages"
+      (sendClick)="sendMessage($event)"
+      (previousPageRequested)="loadPreviousPage()"
+    >
+
+    </app-nb-chat>
+  </nb-layout-column>
+</nb-layout>
